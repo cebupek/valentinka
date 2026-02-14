@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебя</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Segoe UI', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .message {
+            font-size: 2.2em;
+            color: #2c3e50;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            margin-bottom: 30px;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message.fade-out {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        /* Частицы */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 105, 180, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Курсорный след */
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 182, 193, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: trail-fade 0.8s ease-out forwards;
+        }
+
+        @keyframes trail-fade {
+            to {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        // Все сообщения
+        const messages = [
+            "Привет",
+            "Я сделал это и долго думал, как лучше",
+            "Ты умеешь делать день чуть лучше",
+            "Я иногда улыбаюсь просто вспомнив тебя",
+            "Это странно, но я рад, что ты есть",
+            "Ты правда классная",
+            "Я просто хотел, чтобы тебе было приятно",
+            "С 14 февраля ❤"
+        ];
+
+        // Реактивные сообщения
+        const reactiveMessages = {
+            move: "Ты всегда в движении",
+            click: "Мне нравится, что ты любопытная",
+            idle: "Ты тут?"
+        };
+
+        let currentIndex = 0;
+        let isShowingReactive = false;
+        let idleTimer = null;
+        let moveCount = 0;
+        let clickCount = 0;
+        let hasShownMove = false;
+        let hasShownClick = false;
+        let hasShownIdle = false;
+
+        const messageEl = document.getElementById('message');
+
+        // Показать сообщение
+        function showMessage(text, duration = 4000) {
+            messageEl.textContent = text;
+            messageEl.classList.remove('fade-out');
+            messageEl.classList.add('show');
+
+            setTimeout(() => {
+                if (!isShowingReactive) {
+                    hideMessage();
+                }
+            }, duration);
+        }
+
+        // Скрыть сообщение
+        function hideMessage() {
+            messageEl.classList.remove('show');
+            messageEl.classList.add('fade-out');
+
+            setTimeout(() => {
+                if (!isShowingReactive && currentIndex < messages.length) {
+                    nextMessage();
+                }
+            }, 1000);
+        }
+
+        // Следующее сообщение
+        function nextMessage() {
+            if (currentIndex < messages.length) {
+                showMessage(messages[currentIndex]);
+                currentIndex++;
+            }
+        }
+
+        // Показать реактивное сообщение
+        function showReactiveMessage(type) {
+            if (isShowingReactive) return;
+
+            isShowingReactive = true;
+            messageEl.classList.remove('show');
+            messageEl.classList.add('fade-out');
+
+            setTimeout(() => {
+                messageEl.textContent = reactiveMessages[type];
+                messageEl.classList.remove('fade-out');
+                messageEl.classList.add('show');
+
+                setTimeout(() => {
+                    messageEl.classList.remove('show');
+                    messageEl.classList.add('fade-out');
+
+                    setTimeout(() => {
+                        isShowingReactive = false;
+                        if (currentIndex < messages.length) {
+                            nextMessage();
+                        }
+                    }, 1000);
+                }, 3000);
+            }, 500);
+        }
+
+        // Создать частицы
+        function createParticles() {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(particle);
+            }
+        }
+
+        // След курсора
+        function createCursorTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+
+            setTimeout(() => {
+                trail.remove();
+            }, 800);
+        }
+
+        // Обработка движения мыши
+        document.addEventListener('mousemove', (e) => {
+            moveCount++;
+
+            // След за курсором (не слишком часто)
+            if (moveCount % 5 === 0) {
+                createCursorTrail(e.clientX, e.clientY);
+            }
+
+            // Реактивное сообщение при активном движении
+            if (moveCount > 50 && !hasShownMove && currentIndex >= 3) {
+                hasShownMove = true;
+                showReactiveMessage('move');
+                moveCount = 0;
+            }
+
+            // Сброс таймера бездействия
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(() => {
+                if (!hasShownIdle && currentIndex >= 4 && currentIndex < messages.length) {
+                    hasShownIdle = true;
+                    showReactiveMessage('idle');
+                }
+            }, 8000);
+        });
+
+        // Обработка кликов
+        document.addEventListener('click', () => {
+            clickCount++;
+
+            if (clickCount >= 3 && !hasShownClick && currentIndex >= 3) {
+                hasShownClick = true;
+                showReactiveMessage('click');
+                clickCount = 0;
+            }
+        });
+
+        // Старт
+        createParticles();
+        setTimeout(() => {
+            nextMessage();
+        }, 500);
+    </script>
+</body>
+</html>

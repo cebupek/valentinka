@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валентинка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 50%, #ffc0cb 100%);
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            perspective: 2000px;
+        }
+
+        .heart-card {
+            position: relative;
+            width: 750px;
+            height: 750px;
+            transform-style: preserve-3d;
+            transition: transform 0.7s;
+        }
+
+        .heart-card.flip {
+            animation: flipCard 0.7s;
+        }
+
+        @keyframes flipCard {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .heart-side {
+            position: absolute;
+            width: 750px;
+            height: 750px;
+            backface-visibility: hidden;
+        }
+
+        .heart {
+            width: 750px;
+            height: 675px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 35px;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 375px;
+            height: 600px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8db3 100%);
+            border-radius: 375px 375px 0 0;
+            box-shadow: 0 30px 80px rgba(255, 0, 100, 0.5);
+        }
+
+        .heart:before {
+            left: 375px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .message-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 80px 90px;
+            max-width: 550px;
+        }
+
+        .message {
+            font-size: 2.4em;
+            color: white;
+            line-height: 1.4;
+            font-weight: 300;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+            white-space: pre-line;
+        }
+
+        .controls {
+            margin-top: 80px;
+            display: flex;
+            gap: 40px;
+            z-index: 100;
+            position: relative;
+        }
+
+        button {
+            background: white;
+            border: 5px solid #ff6b9d;
+            color: #ff6b9d;
+            padding: 18px 45px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
+            font-weight: 700;
+            font-family: 'Georgia', serif;
+        }
+
+        button:hover:not(:disabled) {
+            background: #ff6b9d;
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(255, 107, 157, 0.6);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .sparkle {
+            position: fixed;
+            font-size: 35px;
+            opacity: 0.6;
+            animation: sparkle 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .sparkle:nth-child(1) { top: 8%; left: 8%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 12%; right: 12%; animation-delay: 1s; }
+        .sparkle:nth-child(3) { bottom: 18%; left: 12%; animation-delay: 2s; }
+        .sparkle:nth-child(4) { bottom: 12%; right: 8%; animation-delay: 0.5s; }
+        .sparkle:nth-child(5) { top: 50%; left: 5%; animation-delay: 1.5s; }
+        .sparkle:nth-child(6) { top: 50%; right: 5%; animation-delay: 2.5s; }
+
+        @keyframes sparkle {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.4) rotate(180deg);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkle">✨</div>
+    <div class="sparkle">💕</div>
+    <div class="sparkle">✨</div>
+    <div class="sparkle">💕</div>
+    <div class="sparkle">💝</div>
+    <div class="sparkle">💖</div>
+
+    <div class="container">
+        <div class="heart-card" id="heartCard">
+            <div class="heart-side">
+                <div class="heart">
+                    <div class="message-container">
+                        <div class="message" id="message"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn">← Назад</button>
+            <button id="nextBtn">Вперёд →</button>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            "С Днём\nСвятого Валентина!",
+            "Ты - моё счастье,\nТы - моя радость,\nТы - моё солнце\nВ любую непогодь!",
+            "С тобой я чувствую\nсебя живым",
+            "Я так сильно\nтебя люблю!",
+            "Ты - самый важный\nчеловек в моей жизни",
+            "Спасибо, что ты\nрядом со мной",
+            "Каждый момент с тобой\nбесценен",
+            "Ты наполняешь\nмою жизнь смыслом",
+            "С тобой я готов\nна всё",
+            "Моя любовь к тебе\nрастёт с каждым днём",
+            "Ты - мой самый\nдорогой человек",
+            "Ты - мечта всей\nмоей жизни",
+            "Без тебя мир\nтеряет краски",
+            "Ты - моё\nвдохновение",
+            "Твоя улыбка\nсогревает моё сердце",
+            "Я благодарен судьбе\nза встречу с тобой",
+            "Ты - самое прекрасное,\nчто случилось со мной",
+            "Люблю тебя\nвсем сердцем! ♥"
+        ];
+
+        let currentIndex = 0;
+        let isFlipping = false;
+        
+        const heartCard = document.getElementById('heartCard');
+        const messageEl = document.getElementById('message');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showMessage(index) {
+            messageEl.textContent = messages[index];
+            updateButtons();
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = currentIndex === 0 || isFlipping;
+            nextBtn.disabled = currentIndex === messages.length - 1 || isFlipping;
+        }
+
+        nextBtn.addEventListener('click', function() {
+            if (currentIndex < messages.length - 1 && !isFlipping) {
+                isFlipping = true;
+                updateButtons();
+                
+                heartCard.classList.add('flip');
+                
+                setTimeout(() => {
+                    currentIndex++;
+                    messageEl.textContent = messages[currentIndex];
+                }, 350);
+                
+                setTimeout(() => {
+                    heartCard.classList.remove('flip');
+                    isFlipping = false;
+                    updateButtons();
+                }, 700);
+            }
+        });
+
+        prevBtn.addEventListener('click', function() {
+            if (currentIndex > 0 && !isFlipping) {
+                isFlipping = true;
+                updateButtons();
+                
+                heartCard.classList.add('flip');
+                
+                setTimeout(() => {
+                    currentIndex--;
+                    messageEl.textContent = messages[currentIndex];
+                }, 350);
+                
+                setTimeout(() => {
+                    heartCard.classList.remove('flip');
+                    isFlipping = false;
+                    updateButtons();
+                }, 700);
+            }
+        });
+
+        showMessage(0);
+    </script>
+</body>
+</html>

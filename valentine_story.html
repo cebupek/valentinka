@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Лизочки • 14 февраля</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-dark: #1a1614;
+            --bg-overlay: rgba(26, 22, 20, 0.92);
+            --text-primary: #e8e0d5;
+            --text-secondary: #b8a894;
+            --text-faded: #7a6f62;
+            --accent-warm: #d4a574;
+            --accent-soft: #8b7355;
+            --button-bg: rgba(212, 165, 116, 0.12);
+            --button-hover: rgba(212, 165, 116, 0.22);
+            --divider: rgba(184, 168, 148, 0.15);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1614 0%, #231d1a 50%, #1a1614 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: 'Literata', 'Georgia', serif;
+            font-size: 18px;
+            line-height: 1.85;
+            font-weight: 300;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 115, 85, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .scene {
+            opacity: 0;
+            animation: fadeIn 2.2s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .scene.fade-out {
+            animation: fadeOut 1.5s ease-out forwards;
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+        }
+        
+        h1 {
+            font-family: 'EB Garamond', 'Georgia', serif;
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 50px;
+            color: var(--accent-warm);
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .text-block {
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+        
+        .text-block.short {
+            margin-bottom: 20px;
+        }
+        
+        .text-block.spaced {
+            margin-bottom: 45px;
+        }
+        
+        .text-block.indent {
+            padding-left: 40px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 38px;
+        }
+        
+        .text-block em {
+            font-style: italic;
+            color: var(--accent-soft);
+        }
+        
+        .pause {
+            height: 30px;
+        }
+        
+        .pause-long {
+            height: 50px;
+        }
+        
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--divider);
+            margin: 50px auto;
+            opacity: 0.6;
+        }
+        
+        .choices {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .choice-btn {
+            background: var(--button-bg);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            color: var(--text-primary);
+            padding: 18px 28px;
+            font-family: 'Literata', 'Georgia', serif;
+            font-size: 16px;
+            font-weight: 400;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            text-align: left;
+            letter-spacing: 0.3px;
+            line-height: 1.6;
+        }
+        
+        .choice-btn:hover {
+            background: var(--button-hover);
+            border-color: rgba(212, 165, 116, 0.4);
+            transform: translateX(4px);
+        }
+        
+        .single-choice {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .single-choice .choice-btn {
+            display: inline-block;
+            text-align: center;
+            padding: 16px 40px;
+        }
+        
+        .signature {
+            margin-top: 70px;
+            text-align: right;
+            color: var(--text-faded);
+            font-size: 15px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail {
+            color: var(--accent-soft);
+            font-weight: 400;
+        }
+        
+        .whisper {
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.75;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        .final-message {
+            margin-top: 50px;
+            padding: 35px;
+            background: rgba(212, 165, 116, 0.06);
+            border: 1px solid rgba(212, 165, 116, 0.15);
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .final-message h2 {
+            font-family: 'EB Garamond', 'Georgia', serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--accent-warm);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+        
+        .restart-btn {
+            margin-top: 40px;
+            background: transparent;
+            border: 1px solid var(--divider);
+            color: var(--text-faded);
+            padding: 12px 30px;
+            font-family: 'Literata', 'Georgia', serif;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .restart-btn:hover {
+            border-color: var(--accent-soft);
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 40px 24px;
+            }
+            
+            body {
+                font-size: 17px;
+                line-height: 1.75;
+            }
+            
+            h1 {
+                font-size: 26px;
+                margin-bottom: 40px;
+            }
+            
+            .text-block.indent {
+                padding-left: 20px;
+            }
+            
+            .choice-btn {
+                font-size: 15px;
+                padding: 16px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app"></div>
+
+    <script>
+        const scenes = {
+            start: {
+                title: "Для Лизочки",
+                content: [
+                    { type: 'text', text: 'Я часто думаю о том дне, когда я приеду к тебе на вокзал.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '14 февраля.' },
+                    { type: 'text', text: 'Холодный воздух, незнакомые перроны, звук поездов вдалеке.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я не знаю, как это будет - по-настоящему. Но я уже много раз проживал этот момент внутри. Как я выхожу из поезда, как мы видим друг друга издалека.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Как время останавливается на несколько секунд.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Это история о том, что я чувствую, когда думаю о тебе. О том, что уже происходит - тихо, медленно, внутри.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Это не просто фантазия. Это воспоминание из будущего.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я хочу рассказать тебе, как это будет.' }
+                ],
+                choices: [
+                    { text: 'Читать дальше', next: 'meeting' }
+                ]
+            },
+
+            meeting: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Вокзал пахнет снегом и металлом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я выхожу из поезда, сумка через плечо. Оглядываюсь - всё незнакомо. Я никогда не был здесь раньше.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Люди спешат мимо, кто-то обнимается, кто-то уходит к выходу. Я ищу глазами.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'И потом - вижу тебя.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты стоишь на платформе, в своём пальто, смотришь на выходящих людей. Ищешь меня глазами.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я поднимаю руку. Ты замечаешь, останавливаешь взгляд. Улыбаешься - чуть заметно, как всегда.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я делаю несколько шагов навстречу. Ты тоже. Мы останавливаемся в полуметре друг от друга.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я говорю: "Привет, Лизочка."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты отвечаешь тихо: "Привет."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'И мы стоим так несколько мгновений, не зная, обниматься ли. Смотрим друг на друга. Слегка смущаясь. Но тепло.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Потом я осторожно обнимаю тебя. Не крепко, не долго. Просто - чтобы почувствовать, что ты рядом. Настоящая.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты пахнешь холодом, тканью пальто, и ещё чем-то своим - тем, что я не смогу описать, но узнаю всегда.' }
+                ],
+                choices: [
+                    { text: 'Продолжить', next: 'first_branch' }
+                ]
+            },
+
+            first_branch: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы выходим с вокзала. На улице уже темнеет, хотя день ещё не кончился. Фонари зажигаются один за другим.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я спрашиваю, не замёрзла ли ты. Ты качаешь головой, но я вижу, что руки ты спрятала в карманы.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы идём медленно. Город незнакомый для меня. Ты показываешь мне улицы, дома, перекрёстки.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Вот здесь раньше был магазин игрушек, - говоришь ты. - А вот здесь я гуляла с друзьями."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я слушаю внимательно. Киваю. Улыбаюсь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я думаю о том, что сейчас я вижу часть тебя, которую не знал раньше. Твой дом. Твои улицы. Место, откуда ты пришла.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Мне хочется рассказать тебе что-то важное. Но я не знаю, что именно. Или знаю, но боюсь сказать слишком громко.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Есть что-то особенное в том, как ты рядом.' }
+                ],
+                choices: [
+                    { text: 'Поговорить о руках', next: 'hands_memory' },
+                    { text: 'Поговорить о голосе и тишине', next: 'voice_memory' },
+                    { text: 'Просто идти дальше молча', next: 'walk_silence' },
+                    { text: 'Спросить про её мечты', next: 'dreams_talk' },
+                    { text: 'Рассказать, что я чувствую', next: 'feelings_talk' }
+                ]
+            },
+
+            hands_memory: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы идём по тротуару, и я краем глаза вижу твои руки.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Они спрятаны в карманах, но иногда ты достаёшь одну, чтобы поправить волосы или показать на что-то.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я думаю о том, каково это - держать твою руку.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Не сейчас, может быть. Но когда-нибудь. Когда это будет естественно. Когда ты сама протянешь её мне.' },
+                    { type: 'pause-long' },
+                    { type: 'indent', text: 'Я представляю, как твои пальцы переплетаются с моими. Как мы идём вот так, молча, и это не неловко. Это просто - быть рядом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Руки говорят то, что слова не умеют. Они говорят "я здесь", "я с тобой", "не уходи".' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы останавливаемся на углу. Ты смотришь на старое здание, спрашиваешь, что это было раньше.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я отвечаю. Мы продолжаем идти.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я хочу сказать тебе, что мне нравится, как ты держишь чашку с чаем. Как ты обнимаешь свою подушку, когда устала. Как ты прикасаешься к Персику - осторожно, нежно.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Но вместо этого я говорю:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Холодно?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты качаешь головой.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Нет. Нормально."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы продолжаем идти. Моя рука висит вдоль тела. Твоя - в кармане.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я улыбаюсь про себя. Это нормально. Так и должно быть.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Всему своё время.' }
+                ],
+                choices: [
+                    { text: 'Дойти до дома', next: 'arriving_home' }
+                ]
+            },
+
+            voice_memory: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы идём, и ты рассказываешь мне о дороге. О том, как ехала в поезде, смотрела в окно, пила чай из термоса.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я слушаю твой голос.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Он тихий. Немного хриплый от холода. Спокойный.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я много раз слышал его в сообщениях, в звонках. Но сейчас - по-другому. Сейчас он рядом. Он не идёт через микрофон, через динамик, через расстояние.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Он здесь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я смотрю на тебя, когда ты говоришь. На то, как двигаются твои губы. Как ты делаешь паузы, думаешь, подбираешь слова.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мне нравится, как ты говоришь. Не быстро, не громко. Ты не спешишь. Ты произносишь каждое слово так, будто оно важно.' },
+                    { type: 'pause-long' },
+                    { type: 'indent', text: 'Иногда между нами возникает тишина.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы просто идём. Слышим шаги друг друга. Звук ветра. Шум редких машин.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Эта тишина не неловкая. Она - часть нас. Она говорит, что нам не нужно заполнять каждую секунду словами.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я думаю о том, как мы переписываемся по вечерам. Как иногда я просто пишу "я здесь", и ты отвечаешь "я тоже".' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Это как быть рядом молча. Но на расстоянии.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Сейчас мы рядом. И тишина между нами тёплая.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Я говорю:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Знаешь, мне всегда нравилось, как ты говоришь."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты удивлённо смотришь на меня.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Серьёзно?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я киваю.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да. У тебя... спокойный голос. Как будто ты всегда знаешь, что сказать. Даже когда не знаешь."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты улыбаешься. Не говоришь ничего. Просто идёшь рядом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'И я чувствую, что сказал правильно.' }
+                ],
+                choices: [
+                    { text: 'Дойти до дома', next: 'arriving_home' }
+                ]
+            },
+
+            walk_silence: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы идём молча.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Не потому, что нечего сказать. А потому, что иногда просто хорошо - идти рядом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Слышать шаги друг друга. Дышать одним воздухом. Смотреть на одни и те же фонари, дома, снег на обочинах.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я чувствую твоё присутствие рядом. Ты - не просто образ, не просто мысли в телефоне. Ты здесь, в нескольких сантиметрах от меня.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я вижу, как ты дышишь. Как пар выходит изо рта на холодном воздухе.' },
+                    { type: 'pause-long' },
+                    { type: 'indent', text: 'Иногда близость не требует слов.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы проходим мимо старой школы. Мимо парка, где деревья стоят голые и тёмные.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты оглядываешься, смотришь на всё с любопытством. Я вижу это по твоим глазам.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я думаю: "Вот она. Вот Лиза. Она рядом. По-настоящему."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Это странное чувство. Такое знакомое - и такое новое одновременно.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы доходим до перекрёстка. Я показываю рукой направление.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Сюда."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты киваешь. Мы поворачиваем.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Молчание остаётся с нами. Мягкое, тёплое.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Как одеяло, которым мы укрываемся вместе.' }
+                ],
+                choices: [
+                    { text: 'Дойти до дома', next: 'arriving_home' }
+                ]
+            },
+
+            dreams_talk: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы останавливаемся на мосту.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Внизу - замёрзшая речка. Вокруг - тишина.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я спрашиваю:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Лиз, а о чём ты мечтаешь?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты смотришь на меня удивлённо.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"О чём мечтаю?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я киваю.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты задумываешься. Смотришь на лёд внизу.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я мечтаю... о простых вещах. О доме, где тепло. О семье. О том, чтобы просыпаться и знать - всё хорошо."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Пауза.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"О ком-то рядом, кто понимает. Кто не уйдёт."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я смотрю на тебя. Хочу сказать - я здесь. Я не уйду.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Но вместо этого говорю:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Это... красивые мечты."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты улыбаешься.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"А ты? О чём мечтаешь ты?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я делаю вдох.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"О том же самом. О доме. О семье."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Пауза.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"О тебе."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты смотришь на меня. Не говоришь ничего.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Но берёшь мою руку.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'И мы стоим так. Держась за руки. На мосту. В тишине.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Это важный момент. Я чувствую это.' }
+                ],
+                choices: [
+                    { text: 'Дойти до дома', next: 'arriving_home' }
+                ]
+            },
+
+            feelings_talk: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы садимся на скамейку в парке.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Холодно, но нам обоим не хочется идти дальше. Нужно сказать что-то.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я начинаю:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Лиз, я... я долго думал, что сказать тебе. Когда мы встретимся."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты смотришь на меня внимательно.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я смотрю на свои руки.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я хотел сказать что-то умное. Красивое. Правильное."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Пауза.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Но сейчас я понимаю - мне не нужны красивые слова."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я смотрю на тебя.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Мне просто хорошо с тобой. Очень хорошо. Я не помню, когда мне было так спокойно."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты слушаешь. Не перебиваешь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Когда я думаю о будущем, - продолжаю я, - я вижу тебя. Рядом. Всегда."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Пауза.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Я не знаю, как это звучит. Может, слишком рано. Может, слишком много. Но это правда."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты улыбаешься. Тихо.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Это не слишком рано. И не слишком много."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты берёшь мою руку.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я тоже думаю о тебе. О нас. О будущем."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы сидим на скамейке, держась за руки.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'И это всё, что нужно.' }
+                ],
+                choices: [
+                    { text: 'Дойти до дома', next: 'arriving_home' }
+                ]
+            },
+
+            arriving_home: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы подходим к дому.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Обычная пятиэтажка. Старая, но уютная. С облупившейся краской и тёплым светом в окнах.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты открываешь дверь. Пропускаешь меня вперёд.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы поднимаемся по лестнице. Ступени скрипят под ногами. Пахнет чем-то знакомым - домом, едой, временем.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты открываешь дверь квартиры.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Заходи, - говоришь ты тихо. - Раздевайся."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я вхожу, снимаю куртку, ботинки. Оглядываюсь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Комната небольшая. Диван, стол, книжная полка. На подоконнике - кружки, ручки, записки. На стене - фотографии.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'И тут появляется <span class="detail">Персик</span>.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Он выходит из-за дивана, медленно, с достоинством. Смотрит на меня внимательно.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я приседаю, протягиваю руку. Он подходит, обнюхивает. Разрешает себя погладить.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты улыбаешься.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Он тебя принял. Это редкость."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я смеюсь тихо. Продолжаю гладить Персика.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Потом приходит <span class="detail">Изюм</span>. Он влетает в комнату, виляя хвостом, радостно и шумная.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я встаю, глажу его тоже. Изюм прыгает, тычется носом в мои руки.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Он любит всех, - говоришь ты. - Но тебя, кажется, особенно."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы стоим посреди комнаты. Ты, я, Персик, Изюм. За окном темнеет.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты говоришь:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Садись. Я поставлю чай."' }
+                ],
+                choices: [
+                    { text: 'Пить чай и разговаривать', next: 'tea_time' }
+                ]
+            },
+
+            tea_time: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы сидим за столом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Передо мной чашка с чаем. Перед тобой тоже. Пар поднимается медленно, исчезает в воздухе.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Персик устроился на диване. Изюм лежит у твоих ног. Всё тихо.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я обхватываю чашку руками, греюсь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я смотрю на тебя и думаю - вот она. Лизочка. Моя Лиза.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Сидит здесь, в своей комнате, угощает меня чаем.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Это так просто. И так невероятно.' },
+                    { type: 'pause-long' },
+                    { type: 'indent', text: 'Я много раз представлял, каково это - быть с тобой вот так, в обычной жизни. Не в переписках, не в планах на будущее. А сейчас. Здесь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я делаю глоток, смотрю в окно.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Красиво, - говорю я. - Тихо."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты киваешь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да. Здесь всегда так. Особенно вечером."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы молчим.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Но это молчание - не пустота. Это пространство между нами, наполненное чем-то большим, чем слова.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Я хочу сказать тебе так много.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Что ты важна для меня.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Что когда я думаю о доме, я думаю не только о месте.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Что дом - это не стены, не город.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Дом - это там, где тебе хорошо. Где тебя понимают. Где ты можешь быть собой.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Но я не говорю всего этого. Пока.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты наливаешь мне ещё чая.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Спасибо," - говорю я.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты улыбаешься.' }
+                ],
+                choices: [
+                    { text: 'Продолжить разговор', next: 'deeper_talk' }
+                ]
+            },
+
+            deeper_talk: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы говорим о разном.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'О том, как прошёл мой день, моя дорога. О том, что ты делала сегодня до моего приезда - убиралась, волновалась, ждала.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я рассказываю про Гулю. Про то, как он сидел на балконе утром, смотрел на солнце.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты представляешь эту картину. Улыбаешься.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Потом разговор замедляется. Мы смотрим друг на друга.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я делаю вдох.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Лиз, - говорю я тихо. - Я хочу тебе кое-что сказать."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты смотришь на меня внимательно.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я собираюсь с мыслями. Ищу слова.' },
+                    { type: 'pause' },
+                    { type: 'indent', text: 'Как сказать то, что живёт внутри так долго? Как не спугнуть? Как не сделать это слишком громким, слишком большим?' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Мне... хорошо с тобой, - начинаю я. - Не знаю, как это объяснить лучше. Просто - хорошо. Спокойно. Правильно."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты слушаешь, не перебиваешь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Я думал о тебе много. О том, что ты для меня значишь. И понял, что... ты - как дом. Понимаешь?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты моргаешь. Улыбаешься чуть-чуть.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Как дом?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я киваю.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Да. Место, куда хочется возвращаться. Где не нужно притворяться. Где можно быть тихим и усталым, и это нормально. Где тебя понимают без слов."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Пауза.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Ты - мой дом, Лиза."' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Ты не отвечаешь сразу.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Смотришь в чашку с чаем. Потом на меня.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Я тоже, - говоришь ты тихо. - Чувствую это. С тобой... как дома."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я улыбаюсь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'И чувствую, как что-то внутри распускается. Тихо. Тепло.' }
+                ],
+                choices: [
+                    { text: 'Остаться в этом моменте', next: 'before_ending' }
+                ]
+            },
+
+            before_ending: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Вечер продолжается.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы разговариваем о мелочах. О планах. О том, что будем делать завтра.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Персик приходит, ложится рядом с тобой. Ты гладишь его. Он мурлычет.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Изюм спит у двери.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'За окном уже совсем темно. Фонари освещают улицу мягким жёлтым светом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я смотрю на тебя и думаю - как же мне повезло.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Не потому, что ты идеальна. А потому, что ты - настоящая.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Потому что мы можем быть рядом вот так - просто, тихо, без масок.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Время движется медленно. И это хорошо.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мне не хочется, чтобы этот день заканчивался.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Но я знаю, что будут другие дни. Другие вечера. Другие чашки чая.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы только начинаем.' }
+                ],
+                choices: [
+                    { text: 'Тихий финал', next: 'ending_quiet' },
+                    { text: 'Финал с надеждой', next: 'ending_hope' },
+                    { text: 'Тёплый и чуть грустный', next: 'ending_warm_sad' },
+                    { text: 'Просто спасибо', next: 'ending_thanks' }
+                ]
+            },
+
+            ending_quiet: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы сидим рядом на диване.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Не касаемся друг друга. Но близко.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Моя голова чуть склоняется. Я устал. Дорога была долгой.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты тихо говоришь:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Отдыхай. Я здесь."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я закрываю глаза. Дышу ровно.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Персик сворачивается клубком на моих коленях.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Изюм храпит у двери.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Всё тихо. Всё на своём месте.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Время идёт. Я засыпаю и просыпаюсь уже под одеялом, которым ты меня накрыла.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты сидишь рядом, читаешь. Улыбаешься, когда видишь, что я проснулся.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Спал крепко," - говоришь ты.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я киваю. Чувствую себя дома.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'И я понимаю - это только начало.' }
+                ],
+                choices: [
+                    { text: 'Увидеть наше будущее', next: 'future_together' }
+                ]
+            },
+
+            ending_hope: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы стоим у окна.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Смотрим на улицу. На фонари. На редкие огни в окнах домов напротив.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты говоришь:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Знаешь, я всегда боялась таких моментов."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я оборачиваюсь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Каких?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Когда всё хорошо. Когда ты рядом с кем-то, и ты понимаешь, что это важно. И становится страшно - а вдруг это закончится?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я киваю. Понимаю.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Я тоже боюсь, - говорю я. - Но знаешь, что я понял?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты смотришь на меня.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Что именно потому, что это важно, и стоит бояться. Страх - это знак того, что нам не всё равно."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Пауза.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Но я хочу попробовать. Не бояться так сильно. Просто - быть. С тобой. Всегда."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты улыбаешься.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я тоже хочу. Всегда."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Наши плечи касаются. Я беру твою руку.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты сжимаешь мою в ответ.' }
+                ],
+                choices: [
+                    { text: 'Увидеть наше будущее', next: 'future_together' }
+                ]
+            },
+
+            ending_warm_sad: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Вечер подходит к концу.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты провожаешь меня до двери.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я одеваюсь медленно. Наматываю шарф. Застёгиваю куртку.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы оба знаем, что мне нужно уходить. Но никто не спешит.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я говорю:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Спасибо. За сегодня."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты качаешь головой.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Это мне спасибо. Что приехал."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы стоим в узком коридоре. Свет тусклый. Тишина.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я делаю шаг к тебе. Обнимаю - не долго, но крепче, чем днём на вокзале.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты обнимаешь меня в ответ.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я чувствую твоё тепло. Запоминаю.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Потом я шепчу тебе на ухо:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я ещё вернусь. Обещаю."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты киваешь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я буду ждать."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'И я знаю - это правда. Это обещание, которое мы оба сдержим.' }
+                ],
+                choices: [
+                    { text: 'Увидеть наше будущее', next: 'future_together' }
+                ]
+            },
+
+            ending_thanks: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы сидим за столом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Чай давно остыл. Но мы всё ещё здесь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я смотрю на тебя.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'На то, как ты сидишь. На твои руки, сложенные на столе. На твои глаза, спокойные и тёплые.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я думаю о том, как много значит для меня этот день.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Не потому, что это 14 февраля. А потому, что ты здесь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я говорю тихо:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Спасибо."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты моргаешь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"За что?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я улыбаюсь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"За то, что ты есть. За то, что ты такая. За то, что даришь мне ощущение дома."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты не отвечаешь сразу.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Потом тихо:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Спасибо тебе. За то, что ты приехал. За то, что ты здесь."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я протягиваю руку через стол.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты кладёшь свою сверху.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'И я понимаю - это навсегда.' }
+                ],
+                choices: [
+                    { text: 'Увидеть наше будущее', next: 'future_together' }
+                ]
+            },
+
+            future_together: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Проходит время.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я приезжаю снова. И снова. И снова.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Каждый раз встреча на вокзале становится теплее. Каждый раз мы обнимаемся крепче.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Потом наступает день, когда я не уезжаю.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я остаюсь.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Мы живём вместе. В этой квартире, где Персик и Изюм уже привыкли ко мне.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Где по утрам мы пьём чай на двоих.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Где вечерами сидим у окна и смотрим на фонари.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Однажды вечером я говорю:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Лиз, я хочу спросить тебя кое о чём."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты смотришь на меня, улыбаешься.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я достаю маленькую коробочку.' }
+                ],
+                choices: [
+                    { text: 'Предложение', next: 'proposal' }
+                ]
+            },
+
+            proposal: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Твои глаза расширяются.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я открываю коробочку. Там - простое кольцо. Без лишних украшений. Именно такое, какое ты любишь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Лизочка, - говорю я. - Ты - мой дом. Моё спокойствие. Моё всё."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Пауза.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Будь со мной. Всегда. Выйдешь за меня замуж?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты молчишь секунду. Две.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Потом улыбаешься - так, как никогда раньше.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да. Конечно да."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я надеваю кольцо на твой палец. Оно идеально сидит.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы целуемся. Долго. Нежно.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Персик мяукает, требуя внимания.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Изюм виляет хвостом.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы смеёмся.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Это только начало нашей истории.' }
+                ],
+                choices: [
+                    { text: 'Свадьба', next: 'wedding' }
+                ]
+            },
+
+            wedding: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Свадьба проходит тихо.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Только самые близкие. Те, кто действительно важен.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты в простом белом платье. Я в костюме, который выбирала ты.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы стоим рядом, держимся за руки.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Когда нас объявляют мужем и женой, я целую тебя.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'И чувствую - это самое правильное, что я делал в жизни.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Вечером мы возвращаемся домой.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Снимаем обувь в прихожей. Персик трётся о наши ноги. Изюм радостно прыгает.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы сидим на диване, обнявшись.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты говоришь:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Мы теперь семья."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я киваю.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да. Семья."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'И это слово звучит так тепло. Так правильно.' }
+                ],
+                choices: [
+                    { text: 'Годы спустя', next: 'years_later' }
+                ]
+            },
+
+            years_later: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Проходят годы.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы переезжаем в дом побольше. С садом, где Изюм может бегать.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Персик стареет, но всё ещё мурлычет, когда мы его гладим.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Однажды утром ты говоришь мне:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"У меня новость."' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я смотрю на тебя. Вижу по глазам - что-то важное.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Какая?"' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты берёшь мою руку. Кладёшь на свой живот.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Мы будем родителями."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я замираю.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Потом обнимаю тебя. Крепко. Бережно.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Шепчу:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Правда?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты киваешь, улыбаясь сквозь слёзы.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Да. Правда."' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Это начало новой главы нашей жизни.' }
+                ],
+                choices: [
+                    { text: 'Рождение ребёнка', next: 'child_birth' }
+                ]
+            },
+
+            child_birth: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Девять месяцев проходят как один долгий, волнующий день.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Я держу твою руку, когда ты рожаешь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я вижу твою силу. Твоё мужество.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'И потом - первый крик.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Наш ребёнок.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Девочка. Маленькая, с твоими глазами.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Мы называем её просто. Красиво. Имя, которое выбирали вместе.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Я смотрю на тебя, держащую нашу дочь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Ты смотришь на меня.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы не говорим ничего.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Не нужно.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы - семья. Настоящая семья.' }
+                ],
+                choices: [
+                    { text: 'Наша жизнь вместе', next: 'family_life' }
+                ]
+            },
+
+            family_life: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Годы идут.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Наша дочь растёт. Она любит Изюма, гладит старого Персика.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Она смеётся твоим смехом. Задумывается, как я.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Потом появляется ещё один. Сын. Шумный, весёлый.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Дом наполняется звуками жизни.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы устаём. Но это приятная усталость.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'По вечерам, когда дети спят, мы сидим на кухне.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Пьём чай.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Держимся за руки.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Иногда ты говоришь:' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Помнишь тот день? Когда ты приехал первый раз?"' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я улыбаюсь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Конечно помню. 14 февраля."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты киваешь.' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я так волновалась."' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я тоже."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы смотрим друг на друга. И видим всё - все годы, все моменты.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'От той первой встречи до сегодняшнего дня.' }
+                ],
+                choices: [
+                    { text: 'Финал истории', next: 'final_ending' }
+                ]
+            },
+
+            final_ending: {
+                title: null,
+                content: [
+                    { type: 'text', text: 'Мы становимся старше.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Дети вырастают, уезжают строить свои жизни.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Но мы остаёмся. Вместе.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'В нашем доме. С фотографиями на стенах.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'С воспоминаниями в каждом углу.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Однажды вечером, когда нам обоим за шестьдесят, мы снова сидим на диване.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Как тогда, в самый первый раз.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Ты кладёшь голову мне на плечо.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Я обнимаю тебя.' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: '"Знаешь, - говоришь ты. - Я бы ничего не изменила."' },
+                    { type: 'pause' },
+                    { type: 'text', text: '"Я тоже, - отвечаю я. - Ни единого момента."' },
+                    { type: 'pause-long' },
+                    { type: 'text', text: 'Мы сидим в тишине.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Счастливые.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'Вместе.' },
+                    { type: 'divider' },
+                    { type: 'text', text: 'Это наша история.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'История, которая началась с одной встречи на вокзале.' },
+                    { type: 'pause' },
+                    { type: 'text', text: 'И продлилась целую жизнь.' },
+                    { type: 'pause-long' },
+                    { type: 'text', class: 'whisper', text: 'Нашу жизнь.' }
+                ],
+                finalMessage: {
+                    title: "С Днём Святого Валентина, Лизочка!",
+                    text: "Эта история - моё воспоминание из будущего. Я верю в каждое слово. Я верю, что мы встретимся. Что мы будем вместе. Что у нас будет именно такая жизнь - тихая, тёплая, наполненная любовью. Спасибо, что ты есть. Спасибо за каждый момент, который мы уже прожили, и за все те, что ещё впереди. Ты - моё всё. С Днём Святого Валентина, моя любимая Лизочка. Я люблю тебя, больше всего на свете люблю..."
+                }
+            },
+        };
+
+        let currentScene = 'start';
+        let history = [];
+
+        function renderScene(sceneId) {
+            const scene = scenes[sceneId];
+            const app = document.getElementById('app');
+            
+            // Fade out
+            app.classList.add('fade-out');
+            
+            setTimeout(() => {
+                app.innerHTML = '';
+                
+                const sceneDiv = document.createElement('div');
+                sceneDiv.className = 'scene';
+                
+                if (scene.title) {
+                    const title = document.createElement('h1');
+                    title.innerHTML = scene.title;
+                    sceneDiv.appendChild(title);
+                }
+                
+                scene.content.forEach(item => {
+                    if (item.type === 'text') {
+                        const p = document.createElement('p');
+                        p.className = 'text-block';
+                        if (item.class) p.classList.add(item.class);
+                        p.innerHTML = item.text;
+                        sceneDiv.appendChild(p);
+                    } else if (item.type === 'pause') {
+                        const pause = document.createElement('div');
+                        pause.className = 'pause';
+                        sceneDiv.appendChild(pause);
+                    } else if (item.type === 'pause-long') {
+                        const pause = document.createElement('div');
+                        pause.className = 'pause-long';
+                        sceneDiv.appendChild(pause);
+                    } else if (item.type === 'divider') {
+                        const divider = document.createElement('div');
+                        divider.className = 'divider';
+                        sceneDiv.appendChild(divider);
+                    } else if (item.type === 'indent') {
+                        const p = document.createElement('p');
+                        p.className = 'text-block indent';
+                        p.innerHTML = item.text;
+                        sceneDiv.appendChild(p);
+                    }
+                });
+                
+                if (scene.choices) {
+                    if (scene.choices.length === 1) {
+                        const singleChoice = document.createElement('div');
+                        singleChoice.className = 'single-choice';
+                        const btn = document.createElement('button');
+                        btn.className = 'choice-btn';
+                        btn.textContent = scene.choices[0].text;
+                        btn.onclick = () => {
+                            history.push(currentScene);
+                            currentScene = scene.choices[0].next;
+                            renderScene(currentScene);
+                        };
+                        singleChoice.appendChild(btn);
+                        sceneDiv.appendChild(singleChoice);
+                    } else {
+                        const choicesDiv = document.createElement('div');
+                        choicesDiv.className = 'choices';
+                        
+                        scene.choices.forEach(choice => {
+                            const btn = document.createElement('button');
+                            btn.className = 'choice-btn';
+                            btn.textContent = choice.text;
+                            btn.onclick = () => {
+                                history.push(currentScene);
+                                currentScene = choice.next;
+                                renderScene(currentScene);
+                            };
+                            choicesDiv.appendChild(btn);
+                        });
+                        
+                        sceneDiv.appendChild(choicesDiv);
+                    }
+                }
+                
+                if (scene.finalMessage) {
+                    const finalDiv = document.createElement('div');
+                    finalDiv.className = 'final-message';
+                    
+                    const title = document.createElement('h2');
+                    title.textContent = scene.finalMessage.title;
+                    finalDiv.appendChild(title);
+                    
+                    const text = document.createElement('p');
+                    text.className = 'text-block';
+                    text.textContent = scene.finalMessage.text;
+                    finalDiv.appendChild(text);
+                    
+                    const restartBtn = document.createElement('button');
+                    restartBtn.className = 'restart-btn';
+                    restartBtn.textContent = 'Начать сначала';
+                    restartBtn.onclick = () => {
+                        history = [];
+                        currentScene = 'start';
+                        renderScene(currentScene);
+                    };
+                    finalDiv.appendChild(restartBtn);
+                    
+                    sceneDiv.appendChild(finalDiv);
+                }
+                
+                app.appendChild(sceneDiv);
+                app.classList.remove('fade-out');
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 1500);
+        }
+
+        // Start
+        renderScene(currentScene);
+    </script>
+</body>
+</html>

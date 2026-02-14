@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебя ❤</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 50%, #ffc0cb 100%);
+            overflow: hidden;
+        }
+
+        /* Пульсирующее сердце */
+        .heart-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            cursor: pointer;
+            margin-bottom: 60px;
+        }
+
+        .heart {
+            width: 200px;
+            height: 180px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 160px;
+            background: #ff6b9d;
+            border-radius: 100px 100px 0 0;
+        }
+
+        .heart:before {
+            left: 100px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        /* Анимация пульсации */
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            25% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Быстрая пульсация при клике */
+        .heart.fast-beat {
+            animation: fastbeat 0.5s ease-in-out;
+        }
+
+        @keyframes fastbeat {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        /* Текст с фразами */
+        .message {
+            font-size: 2em;
+            color: #fff;
+            text-align: center;
+            max-width: 600px;
+            padding: 0 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            min-height: 80px;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Финальное сообщение */
+        .final-message {
+            font-size: 2.5em;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* Падающие сердечки */
+        .falling-heart {
+            position: fixed;
+            font-size: 20px;
+            color: #ff69b4;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Подсказка */
+        .hint {
+            position: absolute;
+            bottom: 40px;
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.7);
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .hint.hide {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-container" id="heartContainer">
+        <div class="heart" id="heart"></div>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="hint" id="hint">Кликни на сердце ❤</div>
+
+    <script>
+        // Список романтичных фраз
+        const phrases = [
+            "Ты делаешь мой день светлее",
+            "Когда думаю о тебе, улыбаюсь",
+            "Ты - лучшее, что случалось со мной",
+            "Каждый момент с тобой особенный",
+            "Я хочу, чтобы ты всегда была счастлива"
+        ];
+
+        // Финальное сообщение
+        const finalMessage = "С 14 февраля ❤<br>Просто знай, что я о тебе думаю";
+
+        let currentPhraseIndex = 0;
+        let heartbeatCount = 0;
+        let isAnimating = false;
+
+        const heart = document.getElementById('heart');
+        const heartContainer = document.getElementById('heartContainer');
+        const messageEl = document.getElementById('message');
+        const hint = document.getElementById('hint');
+
+        // Показать следующую фразу
+        function showNextPhrase() {
+            if (currentPhraseIndex < phrases.length) {
+                // Скрыть текущий текст
+                messageEl.classList.remove('show');
+
+                setTimeout(() => {
+                    // Показать новую фразу
+                    messageEl.textContent = phrases[currentPhraseIndex];
+                    messageEl.classList.add('show');
+                    currentPhraseIndex++;
+                }, 500);
+            } else if (currentPhraseIndex === phrases.length) {
+                // Показать финальное сообщение
+                messageEl.classList.remove('show');
+
+                setTimeout(() => {
+                    messageEl.innerHTML = finalMessage;
+                    messageEl.classList.add('show', 'final-message');
+                    currentPhraseIndex++;
+                    createMultipleHearts();
+                }, 500);
+            }
+        }
+
+        // Создать падающее сердечко
+        function createFallingHeart(x) {
+            const fallingHeart = document.createElement('div');
+            fallingHeart.className = 'falling-heart';
+            fallingHeart.textContent = '❤';
+            fallingHeart.style.left = x + 'px';
+            fallingHeart.style.top = '-20px';
+            document.body.appendChild(fallingHeart);
+
+            setTimeout(() => {
+                fallingHeart.remove();
+            }, 3000);
+        }
+
+        // Создать несколько сердечек
+        function createMultipleHearts() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    createFallingHeart(x);
+                }, i * 200);
+            }
+        }
+
+        // Обработка пульсации сердца
+        heart.addEventListener('animationiteration', () => {
+            heartbeatCount++;
+            
+            // Каждые 2 пульсации показывать новую фразу
+            if (heartbeatCount % 2 === 0 && currentPhraseIndex <= phrases.length) {
+                showNextPhrase();
+            }
+        });
+
+        // Обработка клика на сердце
+        heartContainer.addEventListener('click', (e) => {
+            if (isAnimating) return;
+            if (currentPhraseIndex > phrases.length) return;
+
+            // Скрыть подсказку после первого клика
+            hint.classList.add('hide');
+
+            isAnimating = true;
+
+            // Быстрая пульсация
+            heart.classList.add('fast-beat');
+
+            // Создать падающие сердечки
+            const x = e.clientX;
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createFallingHeart(x + (Math.random() - 0.5) * 100);
+                }, i * 100);
+            }
+
+            // Показать следующую фразу
+            setTimeout(() => {
+                showNextPhrase();
+            }, 250);
+
+            setTimeout(() => {
+                heart.classList.remove('fast-beat');
+                isAnimating = false;
+            }, 500);
+        });
+
+        // Показать первую фразу при загрузке
+        setTimeout(() => {
+            showNextPhrase();
+        }, 1000);
+    </script>
+</body>
+</html>
